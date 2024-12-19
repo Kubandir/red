@@ -1,0 +1,37 @@
+[package]
+name = "red"
+version = "3.1.2"
+edition = "2021"
+description = "TUI code editor"
+
+[[bin]]
+name = "red"
+path = "src/main.rs"
+
+[dependencies]
+crossterm = "0.28.1"
+deunicode = "1.6.0"
+ratatui = "0.29.0"
+regex = "1.7"
+lazy_static = "1.4"
+tree-sitter = "0.24.5"
+tree-sitter-rust = "0.23.2"
+tree-sitter-python = "0.23.5"
+tree-sitter-javascript = "0.23.1"
+tree-sitter-cpp = "0.23.4"
+tree-sitter-c = "0.23.2"
+tree-sitter-go = "0.23.4"
+tree-sitter-html = "0.23.2"
+tree-sitter-css = "0.23.1"
+ropey = "1.5"
+fuzzy-matcher = "0.3"
+syntect = "5.2.0"
+serde = { version = "1.0.216", features = ["derive"] }
+toml = "0.8"
+serde_json = "1.0"
+thiserror = "2.0.6"
+chrono = "0.4"
+textwrap = "0.16"
+arboard = "3.3.0"
+md5 = "0.7"
+bincode = "1.3"
