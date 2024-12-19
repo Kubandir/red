@@ -288,6 +288,8 @@ struct MultiLineDelta {
     file_id: Option<PathBuf>,
 }
 use crossterm::execute;
+use crossterm::terminal::{ClearType};
+use crossterm::cursor;
 impl Editor {
     fn new() -> std::io::Result<Self> {
         let args: Vec<String> = env::args().collect();
@@ -2160,30 +2162,45 @@ impl Editor {
                         }
                         (KeyCode::Char('r'), KeyModifiers::ALT) => {
                             if let Some(filename) = &self.filename {
-                                let path = filename.to_str().unwrap_or("");
-                                let run_command = if path.ends_with(".rs") {
-                                    format!("cd '{}' && cargo run", std::env::current_dir().unwrap().display())
-                                } else if path.ends_with(".cs") {
-                                    format!("dotnet run '{}'", path)
-                                } else if path.ends_with(".py") {
-                                    format!("python3 '{}'", path)
-                                } else {
-                                    return Ok(());
+                                let path = filename.to_str().unwrap_or_default();
+                                let current_dir = match std::env::current_dir() {
+                                    Ok(dir) => dir.display().to_string(),
+                                    Err(e) => {
+                                        self.set_status_message(format!("Failed to get current directory: {}", e));
+                                        return Ok(());
+                                    }
+                                };
+                                let run_command = match path {
+                                    p if p.ends_with(".rs") => format!("cd '{}' && cargo run", current_dir),
+                                    p if p.ends_with(".cs") => format!("dotnet run '{}'", path),
+                                    p if p.ends_with(".py") => format!("python3 '{}'", path),
+                                    p if p.ends_with(".js") => format!("node '{}'", path),
+                                    p if p.ends_with(".go") => format!("go run '{}'", path),
+                                    _ => {
+                                        self.set_status_message("Unsupported file type");
+                                        return Ok(());
+                                    }
                                 };
                                 terminal::disable_raw_mode()?;
                                 crossterm::execute!(
                                     self.terminal.backend_mut(),
-                                    terminal::LeaveAlternateScreen
+                                    terminal::LeaveAlternateScreen,
+                                    terminal::Clear(ClearType::All)
                                 )?;
                                 let status = std::process::Command::new("sh")
                                     .arg("-c")
                                     .arg(&run_command)
                                     .status();
+                                println!("\nPress Enter to continue...");
+                                let _ = std::io::stdin().read_line(&mut String::new());
                                 terminal::enable_raw_mode()?;
                                 crossterm::execute!(
                                     self.terminal.backend_mut(),
-                                    terminal::EnterAlternateScreen
+                                    terminal::EnterAlternateScreen,
+                                    terminal::Clear(ClearType::All),
+                                    cursor::Show
                                 )?;
+                                self.terminal.clear()?;
                                 self.draw()?;
                                 match status {
                                     Ok(status) if status.success() => {
@@ -2196,7 +2213,6 @@ impl Editor {
                                         self.set_status_message(format!("Failed to run: {}", e));
                                     }
                                 }
-                                self.draw()?; // Refresh the canvas after running the program
                             }
                         }
                         (KeyCode::Char('r'), KeyModifiers::CONTROL) => {
