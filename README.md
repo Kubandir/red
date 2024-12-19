@@ -33,4 +33,5 @@ Run the following commands:
 ```bash
 git clone https://github.com/Kubandir/red.git
 cd red
-make install
+chmod +x install.sh
+./install.sh
