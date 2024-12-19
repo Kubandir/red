@@ -1,15 +1,4 @@
-<pre style="color: red; font-family: monospace;">
-  ██▀███  ▓█████ ▓████▄
-  ▓██ ▒ ██▒▓█   ▀ ▒██▀ ██▌
-  ▓██ ░▄█ ▒▓█████ ░██   █▌
-  ▒██▀▀█▄  ▒▓█  ▄ ░▓█▄   ▌
-  ░██▓ ▒██▒░▒████▒░▒████▓
-  ░ ▒▓ ░▓░░░ ▒░ ░ ▒▒▓  ▒
-    ░▒ ░ ▒░ ░ ░  ░ ░ ▒  ▒
-    ░░   ░    ░    ░ ░  ░
-     ░        ░  ░   ░
-                   ░
-</pre>
+# 🔺 Red
 
 **Red** is a fast, lightweight TUI (Text User Interface) code editor written in Rust.  
 
@@ -28,7 +17,8 @@
 - 🎨 **Syntax highlighting**  
 - 📂 **File Explorer sidebar**  
 - 🔄 **Search/Replace**  
-- 🛠️ **Settings** *(coming soon)*  
+- 🛠️ **Settings** *(coming soon)*
+- 🌟 **Git integration** *(coming soon)*
 - 🤖 **AI features** *(coming soon; requires GitHub Copilot subscription)*  
 
 ---
