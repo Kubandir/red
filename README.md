@@ -17,16 +17,13 @@
 - 🎨 **Syntax highlighting**  
 - 📂 **File Explorer sidebar**  
 - 🔄 **Search/Replace**  
-- 🛠️ **Settings** *(coming soon)*
-- 🌟 **Git integration** *(coming soon)*
-- 🤖 **AI features** *(coming soon; requires GitHub Copilot subscription)*  
 
 ---
 
 ## 🛠️ Installation  
 
 > [!NOTE]  
-> 🧰 Ensure Rust is installed before downloading Red.  
+> 🧰 Ensure Rust is installed before downloading Red.
 
 Run the following commands:  
 
